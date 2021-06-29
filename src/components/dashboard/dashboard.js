@@ -1,6 +1,6 @@
-import React ,{useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Box from '@material-ui/core/Box';
@@ -12,22 +12,13 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { MainListItems } from './listitems';
-import Chart from './chart';
-import Deposits from './deposits';
-import Orders from './orders';
-// Msal imports
-import { MsalAuthenticationTemplate, useMsal, useAccount } from "@azure/msal-react";
-import { InteractionType } from "@azure/msal-browser";
-import { loginRequest } from "../../authConfig";
+import {MainListItems} from './listitems';
 import Search from "./search";
-import MassiveUpload from "./massiveupload";
 
 function Copyright() {
     return (
@@ -125,23 +116,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
 
-    const { instance, accounts, inProgress } = useMsal();
-    const account = useAccount(accounts[0] || {});
     const [renderMain, setRenderMain] =  useState(<Search />);
-
-    useEffect(() => {
-        if (account && inProgress === "none") {
-            instance.acquireTokenSilent({
-                ...loginRequest,
-                account: account
-            }).then((response) => {
-            });
-        }
-    }, [account, inProgress, instance]);
-
-    const authRequest = {
-        ...loginRequest
-    };
 
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
@@ -154,22 +129,14 @@ export default function Dashboard() {
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     const clicHandler = (id)=> {
-        console.log("--id = >",id)
         switch (id) {
             case 2:
                 setRenderMain(<Search />)
-                break;
-            case 3:
-                setRenderMain(<MassiveUpload />)
                 break;
         }
     }
 
     return (
-        <MsalAuthenticationTemplate
-            interactionType={InteractionType.Redirect}
-            authenticationRequest={authRequest}
-        >
         <div className={classes.root}>
             <CssBaseline />
             <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
@@ -206,34 +173,22 @@ export default function Dashboard() {
                     </IconButton>
                 </div>
                 <Divider />
-                {/*<List>{mainListItems}</List>*/}
                 <List>
                     <MainListItems
                     clicHandler={clicHandler}
                     />
                 </List>
-                {/*<Divider />*/}
-                {/*<List>{secondaryListItems}</List>*/}
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Container  className={classes.container}>
-                    {/*<Grid container spacing={3}>*/}
-                    {/*    <Grid item xs={12}>*/}
                             <Paper className={classes.paper}>
-                                {/*<Orders />*/}
-                                {/*<Search />*/}
-                                {/*<MassiveUpload />*/}
                                 {renderMain}
                             </Paper>
-                        {/*</Grid>*/}
-                    {/*</Grid>*/}
                     <Box pt={4}>
-                        {/*<Copyright />*/}
                     </Box>
                 </Container>
             </main>
         </div>
-        </MsalAuthenticationTemplate>
     );
 }

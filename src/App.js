@@ -3,15 +3,12 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Container from "./container/container";
 
 // MSAL imports
-import {MsalProvider} from "@azure/msal-react";
 import Dashboard from "./components/dashboard/dashboard";
 
 const App = ({pca}) => {
     return (
         <Router>
-            <MsalProvider instance={pca}>
-                <Pages/>
-            </MsalProvider>
+            <Pages/>
         </Router>
     );
 }

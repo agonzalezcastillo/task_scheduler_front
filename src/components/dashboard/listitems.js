@@ -30,13 +30,7 @@ export const MainListItems = (props) => {
                 <ListItemIcon>
                     <FindInPageIcon/>
                 </ListItemIcon>
-                <ListItemText primary="Consulta de OC"/>
-            </ListItem>
-            <ListItem button onClick={()=>props.clicHandler(3)}>
-                <ListItemIcon>
-                    <PublishIcon />
-                </ListItemIcon>
-                <ListItemText primary="Carga Masiva"/>
+                <ListItemText primary="Consultar Asignaciones"/>
             </ListItem>
         </div>
     )
