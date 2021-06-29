@@ -13,7 +13,7 @@ npm i
 npm run start
 ```
 
-open the next URL in your prefered browser 
+open the next URL in your preferred browser 
 ```sh
 http://localhost:3000
 ```
